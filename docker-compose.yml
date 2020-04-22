@@ -1,0 +1,56 @@
+version: '3.5'
+
+services:
+
+  db:
+    container_name: postgres_db
+    image: postgres:latest
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=movie
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - pgdata:/var/lib/postgresql/data
+
+
+
+  flask-api:
+    container_name: movieRec_backend
+    restart: always
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./backend:/app/Movie_Recommender/backend
+  
+  client:
+    container_name: movieRec_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - './frontend:/app/Movie_Recommender/frontend'
+    
+    ports:
+      - '3000:3000'
+  
+  redis:
+    container_name: redis_movieRec
+    image: redis:latest
+    ports: 
+      - "6379:6379"
+    volumes:
+      - redis-data:/var/lib/redis
+    restart: always
+
+  
+volumes: 
+  pgdata: 
+    external: true
+  redis-data:
+    external: true
+    

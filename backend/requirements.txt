@@ -1,0 +1,7 @@
+scikit-learn
+numpy
+pandas
+redis
+Flask==1.1.1
+Flask-RESTful==0.3.8
+scikit-surprise==1.1.0
