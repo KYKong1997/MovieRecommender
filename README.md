@@ -46,6 +46,7 @@
  ```
  
 4. SSH into postgres container and load data into database tables
+
 <i>The rating data is exceeding git file size limit. You may download the data from [Kaggle](https://www.kaggle.com/grouplens/movielens-20m-dataset#rating.csv)</i>
 
 ```
