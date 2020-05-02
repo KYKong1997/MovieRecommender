@@ -44,10 +44,11 @@ services:
   redis:
     container_name: redis_movieRec
     image: redis:latest
+    command: ["redis-server", "--appendonly", "yes"]
     ports: 
       - "6379:6379"
     volumes:
-      - redis-data:/var/lib/redis
+      - ./redis_vol:/data 
     restart: always
 
   db:

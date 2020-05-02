@@ -11,22 +11,28 @@ const MOVIE_API_URL = "https://www.omdbapi.com/?s=man&apikey=4a3b711b"
 class Main extends Component{
     constructor(){
         super()
+        
+        
     }
+    state ={userId:0}
+
+   
+    
 
     componentDidMount(){
+      console.log("User Id",this.state.userId)
 
-      this.props.startLoadingMovies()
+      this.props.startLoadingUserRec(this.state.userId)
 
     }
+    
     render(){
         return (
             <div>
               <Header text="Movie">
                 
               </Header>
-              <Search>
-        
-              </Search>
+              <Search userId={this.state.userId} {...this.props}></Search>
 
               <MovieWall {...this.props}></MovieWall>
 

@@ -6,6 +6,7 @@ function movies(state = _movies, action){
     
     switch(action.type){
         case 'LOAD_MOVIE': return action.movies
+        case 'LOAD_USER_REC': return action.movies
         default: return state
     }
 }

@@ -38,9 +38,34 @@ export function startLoadingMovies(){
 
 }
 
+export function startLoadingUserRec(userId){
+    console.log("User Id in fuinc:",userId)
+    return (dispatch) =>{
+        return axios.get(`movie/${userId}`).then((data) =>{
+            console.log('Data:', data.data)
+            dispatch(loadUserRec(data.data))
+            
+        }).catch((error)=>{
+            console.log(error)
+        })
+        
+    }
+
+    
+
+}
+
+
 export function loadMovies(movies){
     return {
         type:'LOAD_MOVIE',
+        movies
+    }
+}
+
+export function loadUserRec(movies){
+    return {
+        type:'LOAD_USER_REC',
         movies
     }
 }

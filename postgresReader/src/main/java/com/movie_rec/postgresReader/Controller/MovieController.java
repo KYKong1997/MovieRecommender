@@ -26,10 +26,14 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/movie/{Id}", method = RequestMethod.GET)
-    public List<Movie> getMoviesUser(@PathVariable String Id){
+    public List<Movie> getMoviesUser(@PathVariable String Id, Pageable pageable){
         List<String> list_pred = movieRedisRepository.getMovieListId(Id);
         List<Long> list_pred_long = new ArrayList<>();
         for(String s : list_pred) list_pred_long.add(Long.parseLong(s));
+        if(list_pred.size()==0){
+            Page<Movie> page_result =  movieRepository.findAll(pageable);
+            return page_result.getContent();
+        }
         return movieRepository.findAllById(list_pred_long);
 
     }
