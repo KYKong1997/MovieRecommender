@@ -38,7 +38,7 @@ class Training:
         algorithm.fit(train)
 
         y_test = algorithm.test(test)
-        print(y_test)
+
         print("Test Accuracy:",accuracy.rmse(y_test))
         print('Model training finished.')
         # self.save_model(algorithm)

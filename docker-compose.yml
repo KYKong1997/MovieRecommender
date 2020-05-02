@@ -2,19 +2,22 @@ version: '3.5'
 
 services:
 
-  db:
-    container_name: postgres_db
-    image: postgres:latest
-    environment: 
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=movie
+  
+
+  postgres-reader:
+    container_name: postgres_reader
+    restart: always
+    build:
+      context: ./postgresReader
+      dockerfile: Dockerfile
+    
     ports: 
-      - "5432:5432"
-    volumes: 
-      - pgdata:/var/lib/postgresql/data
-
-
+      - '8082:8082'
+    depends_on:
+      - db
+    environment:
+      WAIT_HOSTS: db:5432
+    
 
   flask-api:
     container_name: movieRec_backend
@@ -47,7 +50,23 @@ services:
       - redis-data:/var/lib/redis
     restart: always
 
-  
+  db:
+    container_name: postgres_db
+    image: postgres:latest
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=movie
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
 volumes: 
   pgdata: 
     external: true

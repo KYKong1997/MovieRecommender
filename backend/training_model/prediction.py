@@ -42,7 +42,7 @@ class Prediction:
         else:
             self.postgres = postgres
         self.trainer = Training(self.postgres)
-        self.redis_client = redis.Redis(host='localhost', port=6379)
+        self.redis_client = redis.Redis(host='localhost', port=6379, db=0)
 
     def get_user_data(self) -> pd.DataFrame:
         data = self.postgres.load_data('users')

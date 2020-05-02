@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://flask-api:8081",
+  "proxy": "http://postgres-reader:8082",
   "eslintConfig": {
     "extends": "react-app"
   },

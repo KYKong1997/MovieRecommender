@@ -25,7 +25,7 @@ export default _movies
 export function startLoadingMovies(){
 
     return (dispatch) =>{
-        return axios.get('/users/7').then((data) =>{
+        return axios.get('movie/3').then((data) =>{
             console.log('Data:', data.data)
             dispatch(loadMovies(data.data))
         }).catch((error)=>{
